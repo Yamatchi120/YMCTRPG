@@ -10,12 +10,12 @@ public class Player
 	int damage = 10;
 	int armor = 5;
 	int hp = 100;
-	int gold = 1500;
+	public int gold = 1500;
 
-	public void ShowState()
+	public void ShowStats()
 	{
 		//Console.Clear();
-		Console.WriteLine($"\n{name} ( {job} )님의 스테이터스\n\n" +
+		Console.WriteLine($"{name} ( {job} )님의 스테이터스\n\n" +
 						  $"레  벨 : {level}\n" +
 						  $"공격력 : {damage}\n" +
 						  $"방어력 : {armor}\n" +

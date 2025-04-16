@@ -5,12 +5,12 @@ namespace TRPG.GM;
 public class GameManager
 {
     static GameManager gm = new GameManager();
-    static UIManager ui = new UIManager();
 
-    bool isTitleUI = false;
+    bool isRunGame = false;
     public static void Main()
     {
-        ui.location = Location.Title;
+        UIManager ui = new UIManager();
+        UIManager.Instance.location = Location.Title;
         gm.RunGame();
     }
 
@@ -19,12 +19,11 @@ public class GameManager
         // Console.WriteLine($"Run / sm.location = {sm.location}");
         //ui.MapUI();
 
-        while (!isTitleUI)
+        while (!isRunGame)
         {
             Console.WriteLine("RunGame 루프 도는중...\n");
-            Console.WriteLine($"GM / location 현재 장소 {ui.location}\n");
-            //ui.TitleUI();
-            ui.MapUI();
+            Console.WriteLine($"GM / location 현재 장소 {UIManager.Instance.location}\n");
+            UIManager.Instance.MapUI();
         }
     }
 }
