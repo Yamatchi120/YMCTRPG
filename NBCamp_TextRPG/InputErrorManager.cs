@@ -24,26 +24,6 @@ public class InputErrorManager
     bool isString = true; // 영어 입력 판별
     bool isChoice = false;
 
-    //public void HandleErrore()
-    //{
-    //    if (UIManager.Instance.location == Location.Title)
-    //    {
-    //        // 숫자 1~3 값
-    //        HandleErrorInt();
-    //    }
-    //    else if (UIManager.Instance.villageChoice == (VillageChoice)1)
-    //    {
-    //        // 숫자 0 값
-    //        HandleErrorOnlyzero();
-    //    }
-    //    else if (UIManager.Instance.location == Location.Village)
-    //    {
-    //        // 숫자 0~4 값
-    //        HandleErrorIntAddzero();
-    //    }
-    //}
-
-
     public void HandleError(InputContext context)
     {
         inputContext = context;
@@ -92,70 +72,6 @@ public class InputErrorManager
         userChoiceInput = Console.ReadLine();
         isString = int.TryParse(userChoiceInput, out userChoice);
     }
-    //void HandleErrorInt() // 예외 처리
-    //{
-    //    isChoice = false;
-    //    do
-    //    {
-    //        HandleErrorInput();
-
-    //        // 숫자만 = false, 영어, null = true, 0 포함 x
-    //        if (!isString || string.IsNullOrWhiteSpace(userChoiceInput) || !(0 < userChoice && userChoice < 4))
-    //        {
-    //            Console.WriteLine("형식 오류: 잘못된 입력값입니다.");
-    //            Console.ReadLine();
-    //            userChoice = -1; // ReadLine 이후 Back되지 않기 위한 초기화값
-    //        }
-    //        else
-    //        {
-    //            isChoice = true;
-    //            Console.WriteLine("ErrorInt isChoice = true 발동");
-    //        } 
-    //        Console.WriteLine("ErrorInt 발동");
-    //    }
-    //    while (!isChoice);
-    //    Console.WriteLine("ErrorInt while 탈출");
-    //}
-    //void HandleErrorIntAddzero() // 예외 처리
-    //{
-    //    isChoice = false;
-    //    do
-    //    {
-    //        HandleErrorInput();
-
-    //        // 숫자만 = false, 영어, null = true, 0 포함 o
-    //        if (!isString || userChoiceInput == null || !(0 <= userChoice && userChoice < 4))
-    //        {
-    //            Console.WriteLine("형식 오류: 잘못된 입력값입니다.");
-    //            Console.ReadLine();
-    //            userChoice = -1; // ReadLine 이후 Back되지 않기 위한 초기화값
-    //        }
-    //        else
-    //            isChoice = true;
-    //        Console.WriteLine("ErrorAddzero 발동");
-    //    }
-    //    while (!isChoice);
-    //}
-    //public void HandleErrorOnlyzero()
-    //{
-    //    isChoice = false;
-    //    do
-    //    {
-    //        HandleErrorInput();
-
-    //        // 숫자만 = false, 영어, null = true, 0 포함 o
-    //        if (!isString || string.IsNullOrWhiteSpace(userChoiceInput) || 0 != userChoice)
-    //        {
-    //            Console.WriteLine("형식 오류: 잘못된 입력값입니다.");
-    //            Console.ReadLine();
-    //            userChoice = -1; // ReadLine 이후 Back되지 않기 위한 초기화값
-    //        }
-    //        else
-    //            isChoice = true;
-    //        Console.WriteLine("ErrorOnlyZero 발동");
-    //    }
-    //    while (!isChoice);
-    //}
     public void HandleErrorYesNo() // 메인화면 돌아갈 때 질문하는 함수
     {
         isChoice = false;
