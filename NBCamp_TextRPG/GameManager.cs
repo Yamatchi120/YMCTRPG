@@ -1,4 +1,5 @@
-﻿using TRPG.UM;
+﻿using TRPG.IM;
+using TRPG.UM;
 
 namespace TRPG.GM;
 
@@ -9,8 +10,8 @@ public class GameManager
     bool isRunGame = false;
     public static void Main()
     {
-        UIManager ui = new UIManager();
         UIManager.Instance.location = Location.Title;
+        ItemManager.Init();
         gm.RunGame();
     }
 
@@ -23,7 +24,7 @@ public class GameManager
         {
             Console.WriteLine("RunGame 루프 도는중...\n");
             Console.WriteLine($"GM / location 현재 장소 {UIManager.Instance.location}\n");
-            UIManager.Instance.MapUI();
+            UIManager.Instance.UIRun();
         }
     }
 }

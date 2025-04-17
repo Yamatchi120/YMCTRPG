@@ -10,10 +10,6 @@ public enum ItemType
 public static class ItemManager
 {
     public static List<Item> itemList = new List<Item>();
-    public static void Inventory()
-    {
-        Console.WriteLine("[아이템 목록]\n");
-    }
 
     public static void Init()
     {

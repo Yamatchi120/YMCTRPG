@@ -1,4 +1,4 @@
-﻿using System;
+﻿using TRPG.IM;
 
 namespace TRPG.Character;
 
@@ -14,12 +14,22 @@ public class Player
 
 	public void ShowStats()
 	{
-		//Console.Clear();
-		Console.WriteLine($"{name} ( {job} )님의 스테이터스\n\n" +
-						  $"레  벨 : {level}\n" +
+		Console.WriteLine($"Lv. {level}\n" +
+						  $"{name} ( {job} )\n" + 
 						  $"공격력 : {damage}\n" +
 						  $"방어력 : {armor}\n" +
 						  $"체  력 : {hp}\n" +
-						  $"소지금 : {gold}\n");
+						  $"소지금 : {gold}");
+	}
+
+    public void Inventory()
+    {
+        Console.WriteLine("[아이템 목록]");
+        
+    }
+
+    public void Equip()
+	{
+
 	}
 }

@@ -2,14 +2,16 @@
 using TRPG.IM;
 using TRPG.IEM;
 using TRPG.ShopM;
+using System;
 
 namespace TRPG.UM;
 
-// 현재는 HandleError 쪽에 받는 값을 정수로 해서 관리가 힘듬
-// 해당 UI에 값에 맞게 알아서 늘어나고 줄어들도록
-// HandleError함수에 있는 if문 숫자 1~3까지만 받는 조건 
-// 숫자 -> 변수로 바꿔서 관리하기 편하게
-
+enum TitleChoice
+{
+    GameStart = 1,
+    DataReset = 2,
+    GameEnd = 0
+}
 public enum Location
 {
     Title = 1,
@@ -24,13 +26,17 @@ public enum VillageChoice
     Back = 0
     //Dungeon = 4
 }
-enum TitleChoice
+public enum InventoryChoice
 {
-    GameStart = 1,
-    GameEnd = 2,
-    DataReset = 3
+    Equip = 1,
+    Back = 0
 }
-
+public enum StoreChoice
+{
+    Buy = 1,
+    Back = 0
+}
+// 추후 Discription, UI 기능별 클래스 쪼개기
 public class UIManager
 {
     // 싱글톤
@@ -43,14 +49,16 @@ public class UIManager
     TitleChoice titleChoice;
     public VillageChoice villageChoice;
     public Location location = new Location();
+    InventoryChoice inventoryChoice;
+    StoreChoice storeChoice;
         
-    public void MapUI() // 메인 실행
+    public void UIRun() // 메인 실행
     {
-        //Console.Clear();
+        // Console.Clear();
         villageChoice = VillageChoice.IDLE;
 
         LocationDiscription();
-        ShowChoice();
+        HandleLocation();
         HandleUI();
     }
     void LocationDiscription() // 맵 설명
@@ -65,10 +73,12 @@ public class UIManager
                 break;
         }
     }
-    void ShowChoice() // 타이틀 화면 선택지
+    void HandleLocation() // 타이틀 화면 선택지
     {
-        CurrentLocation();
+        LocationChoice();
+        Console.WriteLine("HandleLocation HandleError 시작 전");
         iem.HandleError();
+        Console.WriteLine("HandleLocation HandleError 시작 후");
 
         switch (location)
         {
@@ -79,11 +89,21 @@ public class UIManager
                 villageChoice = (VillageChoice)iem.userChoice; // int -> enum 캐스팅
                 break;
         }
-        Console.WriteLine($"\ntitleChoice = {titleChoice}\nvillageChoice = {villageChoice}\n");
+        switch (villageChoice)
+        {
+            case VillageChoice.Inventory:
+                inventoryChoice = (InventoryChoice)iem.userChoice;
+                break;
+            case VillageChoice.Store:
+                storeChoice = (StoreChoice)iem.userChoice;
+                break;
+        }
+        Console.WriteLine($"\ntitleChoice = {titleChoice}\nvillageChoice = {villageChoice}"); // Test Debug
+        Console.WriteLine($"InventoryChoice = {inventoryChoice}"); // Test Debug
+        Console.WriteLine($"StoreChoice = {storeChoice}\n"); // Test Debug
     }
     void HandleUI() // 타이틀 선택지 UI
     {
-        bool handleUIOUT = false;
         if (location == Location.Title)
         {
             switch (titleChoice) // 선택지 확장 가능
@@ -102,50 +122,52 @@ public class UIManager
                     break;
             }
         }
-        else if (location == Location.Village)
+        if (location == Location.Village)
         {
             switch (villageChoice) // 마을 동일 UI, 선택지 확장 가능
             {
                 case VillageChoice.CharacterStats:
-                    while (!handleUIOUT)
+                    while (true)
                     {
                         UIDiscription();
                         p.ShowStats();
                         villageChoice = VillageChoice.CharacterStats;
-                        ShowChoice();
+                        HandleLocation();
                         if (villageChoice == 0)
                         {
                             villageChoice = VillageChoice.Back; // 나가기 선택 시 마을 메뉴로 복귀
                             break;
                         }
+                        Console.WriteLine("Clear"); // Test Debug
                     }
                     break;
                 case VillageChoice.Inventory:
-                    while (!handleUIOUT)
+                    while (true)
                     {
                         UIDiscription();
-                        ItemManager.Inventory();
-                        villageChoice = VillageChoice.Inventory;
-                        ShowChoice();
+                        p.Inventory();
+                        HandleLocation();
                         if (villageChoice == 0)
                         {
                             villageChoice = VillageChoice.Back; // 나가기 선택 시 마을 메뉴로 복귀
                             break;
                         }
+                        Console.WriteLine("Clear"); // Test Debug
                     }
                     break;
                 case VillageChoice.Store:
-                    while (!handleUIOUT)
+                    while (true)
                     {
                         UIDiscription();
                         shopm.BaseShop();
                         villageChoice = VillageChoice.Store;
-                        ShowChoice();
+                        HandleLocation();
                         if (villageChoice == 0)
                         {
                             villageChoice = VillageChoice.Back; // 나가기 선택 시 마을 메뉴로 복귀
                             break;
                         }
+                        Console.WriteLine("Clear"); // Test Debug
                     }
                     break;
                 case VillageChoice.Back:
@@ -163,6 +185,10 @@ public class UIManager
                     break;
             }
         }
+        if(inventoryChoice == InventoryChoice.Equip)
+        {
+
+        }
     }
 
     void UIDiscription() // UI 설명
@@ -170,48 +196,63 @@ public class UIManager
         switch (villageChoice)
         {
             case VillageChoice.CharacterStats:
-                Console.WriteLine("캐릭터 스테이터스\n");
+                Console.WriteLine("캐릭터 스테이터스");
+                Console.WriteLine("캐릭터의 정보가 표시됩니다.\n");
                 break;
             case VillageChoice.Inventory:
-                Console.Write("인벤토리\n");
+                Console.WriteLine("인벤토리");
+                Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n");
                 break;
             case VillageChoice.Store:
-                Console.WriteLine("상점\n");
+                Console.WriteLine("상점");
+                Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.\n");
+                break;
+        }
+        switch (inventoryChoice)
+        {
+            case InventoryChoice.Equip:
+                Console.WriteLine("인벤토리 - 장착관리");
+                Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n");
                 break;
         }
     }
-    void CurrentLocation() // 현재 장소 (씬)
+    void LocationChoice() // 현재 장소 (씬)
     {
         switch (location) // 마을 확장 가능
         {
             case Location.Title: // 타이틀
-                Console.WriteLine("1. 게임 시작\n2. 게임 종료\n3. 데이터 초기화 ( 미구현 )");
+                Console.WriteLine("1. 게임 시작\n2. 데이터 초기화 ( 미구현 )\n0. 게임 종료");
+                iem.inputContext = InputContext.ZeroToThree;
                 break;
             case Location.Village: // 마을
-                CurrentUI();
+                UIChoice();
                 break;
         }
     }
-    void CurrentUI() // 현재 UI
+    void UIChoice() // 현재 UI
     {
         if (villageChoice == VillageChoice.IDLE)
         {
             // 마을에 있을 때
             Console.WriteLine("1. 상태 보기\n2. 인벤토리\n3. 상점\n0. 나가기");
+            iem.inputContext = InputContext.ZeroToThree;
         }
         else if (villageChoice == VillageChoice.CharacterStats)
         {
-            Console.WriteLine("0. 나가기");
+            Console.WriteLine("\n0. 나가기");
+            iem.inputContext = InputContext.OnlyZero;
         }
         else if (villageChoice == VillageChoice.Inventory)
         {
             // 인벤토리 UI
-            Console.WriteLine("1. 장착 관리\n0. 나가기");
+            Console.WriteLine("\n1. 장착 관리\n0. 나가기");
+            iem.inputContext = InputContext.ZeroToTwo;
         }
         else if (villageChoice == VillageChoice.Store)
         {
             // 상점 UI
-            Console.WriteLine("1. 아이템 구매\n0. 나가기");
+            Console.WriteLine("\n1. 아이템 구매\n0. 나가기");
+            iem.inputContext = InputContext.ZeroToTwo;
         }
     }
 }
