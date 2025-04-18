@@ -1,5 +1,4 @@
-﻿
-namespace TRPG.IM;
+﻿namespace TRPG.IM;
 
 public enum ItemType
 {

@@ -48,7 +48,7 @@ public class UIManager
     public static UIManager Instance { get; private set; } = new UIManager();
 
     Player p = new Player();
-    ShopManager shopm;
+    ShopManager shopm = new ShopManager();
     InputErrorManager iem = new InputErrorManager();
 
     TitleChoice titleChoice;
@@ -60,7 +60,7 @@ public class UIManager
         
     public void UIRun() // 메인 실행
     {
-        // Console.Clear();
+        Console.Clear();
         villageChoice = VillageChoice.IDLE;
 
         LocationDiscription();
@@ -108,9 +108,9 @@ public class UIManager
         {
             villageChoice = (VillageChoice)iem.userChoice;
         }
-        Console.WriteLine($"InventoryChoice = {inventoryChoice}"); // Test Debug
-        Console.WriteLine($"\ntitleChoice = {titleChoice}\nvillageChoice = {villageChoice}"); // Test Debug
-        Console.WriteLine($"StoreChoice = {storeChoice}\n"); // Test Debug
+        //Console.WriteLine($"InventoryChoice = {inventoryChoice}"); // Test Debug
+        //Console.WriteLine($"\ntitleChoice = {titleChoice}\nvillageChoice = {villageChoice}"); // Test Debug
+        //Console.WriteLine($"StoreChoice = {storeChoice}\n"); // Test Debug
     }
     void HandleUI() // 타이틀 선택지 UI
     {
@@ -134,7 +134,7 @@ public class UIManager
                 case VillageChoice.CharacterStats:
                     while (true)
                     {
-                        // Console.Clear();
+                        Console.Clear();
                         UIDiscription();
                         p.ShowStats();
                         HandleLocation();
@@ -148,7 +148,7 @@ public class UIManager
                 case VillageChoice.Inventory:
                     while (true)
                     {
-                        // Console.Clear();
+                        Console.Clear();
                         UIDiscription();
                         p.Inventory();
                         HandleLocation();
@@ -162,7 +162,7 @@ public class UIManager
                 case VillageChoice.Store:
                     while (true)
                     {
-                        // Console.Clear();
+                        Console.Clear();
                         UIDiscription();
                         shopm.BaseShop();
                         HandleLocation();
@@ -226,7 +226,7 @@ public class UIManager
         switch (location) // 마을 확장 가능
         {
             case Location.Title: // 타이틀
-                Console.WriteLine("1. 게임 시작\n2. 데이터 초기화 ( 미구현 )\n0. 게임 종료");
+                Console.WriteLine("1. 게임 시작\n0. 게임 종료");
                 choiceCount = ChoiceCount.Count1;
                 break;
             case Location.Village: // 마을
