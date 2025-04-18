@@ -11,7 +11,7 @@ public class GameManager
     public static void Main()
     {
         UIManager.Instance.location = Location.Title;
-        ItemManager.Init();
+        ItemManager.Init(); // 아이템 등록
         gm.RunGame();
     }
 

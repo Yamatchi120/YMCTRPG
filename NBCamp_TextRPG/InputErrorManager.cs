@@ -22,7 +22,6 @@ public class InputErrorManager
     public int userChoice; // 유저 선택지
 
     bool isString = true; // 영어 입력 판별
-    bool isChoice = false;
 
     public void HandleError(InputContext context)
     {
@@ -46,25 +45,24 @@ public class InputErrorManager
                 maxChoice = 3;
                 break;
         }
-        do
-        {
+        while(true)
+        { 
             HandleErrorInput();
 
             // 숫자만 = false, 영어, null = true, 0 포함 x
             if (string.IsNullOrWhiteSpace(userChoiceInput))
             {
-                Console.WriteLine("형식 오류: 값을 입력해주세요.");
+                Console.Write("형식 오류: 값을 입력해주세요.");
                 Console.ReadLine();
             }
             else if (!isString || userChoice < minChoice || userChoice > maxChoice)
             {
-                Console.WriteLine("형식 오류: 잘못된 입력값입니다.");
+                Console.Write("형식 오류: 잘못된 입력값입니다.");
                 Console.ReadLine();
             }
             else
-                isChoice = true;
+                break;
         }
-        while (!isChoice);
     }
     void HandleErrorInput()
     {
@@ -74,8 +72,8 @@ public class InputErrorManager
     }
     public void HandleErrorYesNo() // 메인화면 돌아갈 때 질문하는 함수
     {
-        isChoice = false;
-        do
+        //isChoice = false;
+        while(true)
         {
             Console.Write("\n메인화면으로 돌아가시겠습니까? (Yes or No)\n>> ");
             userChoiceInput = Console.ReadLine();
@@ -86,29 +84,31 @@ public class InputErrorManager
             {
                 Console.WriteLine("형식 오류: 잘못된 입력값입니다.");
                 userChoice = -1; // ReadLine 이후 Back되지 않기 위한 초기화값
+                continue;
             }
             else if (userChoiceInput[0] == 'y' || 'Y' == userChoiceInput[0]) // 소문자 or 앞자리 y, n 대문자 변환
             {
                 upperInput = userChoiceInput;
                 handleYesNo = upperInput.ToString().ToUpper()[0];
+                break;
             }
             else if (userChoiceInput[0] == 'n' || 'N' == userChoiceInput[0]) // 소문자 or 앞자리 y, n 대문자 변환
             {
                 upperInput = userChoiceInput;
                 handleYesNo = upperInput.ToString().ToUpper()[0];
+                break;
             }
-
-            switch (handleYesNo)
-            {
-                case 'Y':
-                    // village 일 때 종료 하시겠습니까
-                    UIManager.Instance.location = Location.Title;
-                    break;
-                case 'N':
-                    UIManager.Instance.location = Location.Village;
-                    // 현재 장소 기억 다시 돌아와야함
-                    break;
-            }
-        } while (!isChoice);
+        }
+        switch (handleYesNo)
+        {
+            case 'Y':
+                // village 일 때 종료 하시겠습니까
+                UIManager.Instance.location = Location.Title;
+                break;
+            case 'N':
+                UIManager.Instance.location = Location.Village;
+                // 현재 장소 기억 다시 돌아와야함
+                break;
+        }
     }
 }

@@ -4,7 +4,9 @@ namespace TRPG.Character;
 
 public class Player
 {
-	int level = 01;
+    public List<Item> inventory = new List<Item>();
+
+    int level = 01;
 	string name = "yamatchi";
 	string job = "전사";
 	int damage = 10;
@@ -22,14 +24,18 @@ public class Player
 						  $"소지금 : {gold}");
 	}
 
+
     public void Inventory()
     {
         Console.WriteLine("[아이템 목록]");
-        
+        foreach (var item in inventory)
+		{
+			item.PrintInfo();
+		}
     }
 
     public void Equip()
 	{
-
-	}
+        Console.WriteLine("[아이템 목록] 장착 관리");
+    }
 }
