@@ -49,7 +49,6 @@ public class InputErrorManager
         { 
             HandleErrorInput();
 
-            // 숫자만 = false, 영어, null = true, 0 포함 x
             if (string.IsNullOrWhiteSpace(userChoiceInput))
             {
                 Console.Write("형식 오류: 값을 입력해주세요.");
@@ -72,7 +71,6 @@ public class InputErrorManager
     }
     public void HandleErrorYesNo() // 메인화면 돌아갈 때 질문하는 함수
     {
-        //isChoice = false;
         while(true)
         {
             Console.Write("\n메인화면으로 돌아가시겠습니까? (Yes or No)\n>> ");
@@ -107,7 +105,6 @@ public class InputErrorManager
                 break;
             case 'N':
                 UIManager.Instance.location = Location.Village;
-                // 현재 장소 기억 다시 돌아와야함
                 break;
         }
     }

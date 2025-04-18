@@ -17,8 +17,8 @@ public class GameManager
     {
         while (true)
         {
-            //Console.WriteLine("RunGame 루프 도는중...\n");
-            //Console.WriteLine($"GM / location 현재 장소 {UIManager.Instance.location}\n");
+            // Console.WriteLine("RunGame 루프 도는중...\n");
+            // Console.WriteLine($"GM / location 현재 장소 {UIManager.Instance.location}\n");
             UIManager.Instance.UIRun();
         }
     }
