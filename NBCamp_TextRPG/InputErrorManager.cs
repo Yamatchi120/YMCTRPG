@@ -65,6 +65,8 @@ public class InputErrorManager
     }
     void HandleErrorInput()
     {
+        Console.WriteLine($"\ntitleChoice = {UIManager.Instance.titleChoice}\nvillageChoice = {UIManager.Instance.villageChoice}"); // Test Debug
+        Console.WriteLine($"InventoryChoice = {UIManager.Instance.inventoryChoice}"); // Test Debug
         Console.Write("\n\n원하시는 행동을 입력해주세요\n>> ");
         userChoiceInput = Console.ReadLine();
         isString = int.TryParse(userChoiceInput, out userChoice);

@@ -4,7 +4,7 @@ using TRPG.ShopM;
 
 namespace TRPG.UM;
 
-enum TitleChoice
+public enum TitleChoice
 {
     GameStart = 1,
     DataReset = 2,
@@ -51,10 +51,10 @@ public class UIManager
     ShopManager shopm = new ShopManager();
     InputErrorManager iem = new InputErrorManager();
 
-    TitleChoice titleChoice;
+    public TitleChoice titleChoice;
     public VillageChoice villageChoice;
     public Location location = new Location();
-    InventoryChoice inventoryChoice;
+    public InventoryChoice inventoryChoice;
     StoreChoice storeChoice;
     ChoiceCount choiceCount;
         
@@ -134,7 +134,7 @@ public class UIManager
                 case VillageChoice.CharacterStats:
                     while (true)
                     {
-                        Console.Clear();
+                        // Console.Clear();
                         UIDiscription();
                         p.ShowStats();
                         HandleLocation();
@@ -148,7 +148,7 @@ public class UIManager
                 case VillageChoice.Inventory:
                     while (true)
                     {
-                        Console.Clear();
+                        // Console.Clear();
                         UIDiscription();
                         p.Inventory();
                         HandleLocation();
@@ -162,7 +162,7 @@ public class UIManager
                 case VillageChoice.Store:
                     while (true)
                     {
-                        Console.Clear();
+                        // Console.Clear();
                         UIDiscription();
                         shopm.BaseShop();
                         HandleLocation();
