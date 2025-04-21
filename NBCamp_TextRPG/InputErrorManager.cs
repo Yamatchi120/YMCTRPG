@@ -4,10 +4,11 @@ namespace TRPG.IEM;
 
 public enum InputContext
 {
-    OnlyZero,       // 0만 가능
-    ZeroToOne,      // 0~1 가능
-    ZeroToTwo,      // 0~2 가능
-    ZeroToThree     // 0~3 가능
+    Range_0,       // 0만 가능
+    Range_0_1,      // 0~1 가능
+    Range_0_2,      // 0~2 가능
+    Range_0_3,     // 0~3 가능
+    Range_0_4       // 0~4 가능
 }
 public class InputErrorManager
 {
@@ -28,28 +29,32 @@ public class InputErrorManager
         inputContext = context;
         switch (inputContext)
         {
-            case InputContext.OnlyZero:
+            case InputContext.Range_0:
                 minChoice = 0;
                 maxChoice = 0;
                 break;
-            case InputContext.ZeroToOne:
+            case InputContext.Range_0_1:
                 minChoice = 0;
                 maxChoice = 1;
                 break;
-            case InputContext.ZeroToTwo:
+            case InputContext.Range_0_2:
                 minChoice = 0;
                 maxChoice = 2;
                 break;
-            case InputContext.ZeroToThree:
+            case InputContext.Range_0_3:
                 minChoice = 0;
                 maxChoice = 3;
+                break;
+            case InputContext.Range_0_4:
+                minChoice = 0;
+                maxChoice = 4;
                 break;
         }
         while(true)
         { 
             HandleErrorInput();
 
-            if (string.IsNullOrWhiteSpace(userChoiceInput))
+            if (string.IsNullOrWhiteSpace(userChoiceInput)) // null 처리
             {
                 Console.Write("형식 오류: 값을 입력해주세요.");
                 Console.ReadLine();
